@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import authenticate
 
@@ -7,6 +8,7 @@ def index(request):
     return render(request, 'index.html')
 
 def login_view(request):
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -22,3 +24,9 @@ def login_view(request):
     return render(request, 'usuarios/login.html', {
 
     })    
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Sesion cerrada exitosamente')
+    return redirect('login')
