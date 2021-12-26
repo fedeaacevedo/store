@@ -1,18 +1,23 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-
-from django.contrib import auth
+from django.shortcuts import redirect, render
+from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth import authenticate
 
 def index(request):
     return render(request, 'index.html')
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        print(username)
-        print(password)
+        user = authenticate(username=username, password=password) #authenticate es una funcion de django, nos permite ver si existen user con ese nombre y pass
+        if user:
+            login(request, user)
+            messages.success(request, "Bienvenido {}".format(user.username))
+            return redirect('index')
+        else:
+            messages.error(request, "Usuario o contraseña no valido")
 
     return render(request, 'usuarios/login.html', {
 
