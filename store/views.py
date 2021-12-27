@@ -4,6 +4,8 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import authenticate
 
+from store.forms import RegisterForm
+
 def index(request):
     return render(request, 'index.html')
 
@@ -30,3 +32,20 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Sesion cerrada exitosamente')
     return redirect('login')
+
+
+def register(request):
+    form = RegisterForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        username = form.cleaned_data.get('username') #Diccionario  
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+
+        print(username)
+        print(email)
+        print(password)
+
+    return render(request, 'usuarios/register.html',{
+        'form': form
+    })
