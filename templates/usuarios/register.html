@@ -15,7 +15,7 @@
                 <!--Formulario creado con clases-->
                <form method="post">
                    {% csrf_token %}
-
+<!-- 
                    <div class="form-group">
                        {{form.username.label_tag}}
                        {{form.username}}
@@ -23,12 +23,20 @@
                    <div class="form-group">
                     {{form.email.label_tag}}
                     {{form.email}}
-                    </div>
+                    </div> -->
 
+                    {% for field in form %}
                     <div class="form-group">
-                        {{form.password.label_tag}}
-                        {{form.password}}
+                       
+                        {{field.label_tag}}
+                        {{field}}
+
+                        {% if field.errors%}
+                            {{ field.errors }}
+                        {% endif %}    
+
                     </div>
+                    {% endfor %}
 
                    <button type="submit" class="btn btn-primary">Registrar</button>
                </form>
