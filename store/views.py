@@ -38,12 +38,9 @@ def register(request):
     form = RegisterForm(request.POST or None)
 
     if request.method == 'POST' and form.is_valid():
-        username = form.cleaned_data.get('username') #Diccionario  
-        email = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password')
-
-        user = User.objects.create_user(username, email, password)
-        if user:
+       
+         user = form.save()
+         if user:
             login(request, user)
             messages.success(request, 'Usuario creado exitosamente')
             return redirect('index')

@@ -9,21 +9,11 @@
 <body>
     <div class="container">
         
-        {% if messages%}
-            {% for message in messages%}
-              {% if message.tags == 'success' %}
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="success">X</button>
-                    {{message}}
-                </div>
-               {% else %}
-                <div class="alert alert-danger">
-                   
-                    {{message}}
-                </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+       <div class="col">
+           <h1>{{ message }}</h1>
+           <h1>Hola mundo desde django</h1>
+       </div>
+       
 
     </div>
 
